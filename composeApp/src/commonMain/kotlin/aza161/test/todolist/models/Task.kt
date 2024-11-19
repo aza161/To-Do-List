@@ -20,7 +20,7 @@ data class Task(
     public var reminderDateTime: LocalDateTime? = null
 
     @OptIn(ExperimentalUuidApi::class)
-    public val id: String = Uuid.random().toString()
+    public val id: Uuid = Uuid.random()
 
     @Transient
     public val subTasks: MutableList<Task> = mutableListOf()
@@ -40,10 +40,4 @@ data class Task(
             else -> this.priority.compareTo(other.priority)
         }
     }
-}
-
-fun main() {
-    val task = Task()
-    task.priority = 5
-    print(task.id)
 }
