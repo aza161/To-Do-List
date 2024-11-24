@@ -4,7 +4,6 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Instant
 import kotlinx.datetime.Clock
 import kotlinx.datetime.serializers.InstantIso8601Serializer
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlin.uuid.Uuid
 import kotlin.uuid.ExperimentalUuidApi
@@ -20,7 +19,6 @@ data class Task(
     public var complete: Boolean = false
     public var reminderDateTime: LocalDateTime? = null
 
-    @Contextual
     @Serializable(with = UuidSerializer::class)
     @OptIn(ExperimentalUuidApi::class)
     public val id: Uuid = Uuid.random()
