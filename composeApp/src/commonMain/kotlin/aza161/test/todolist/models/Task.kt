@@ -1,3 +1,13 @@
+package aza161.test.todolist.models
+
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Instant
+import kotlinx.datetime.Clock
+import kotlinx.datetime.serializers.InstantIso8601Serializer
+import kotlinx.serialization.Serializable
+import kotlin.uuid.Uuid
+import kotlin.uuid.ExperimentalUuidApi
+
 /**
  * @author aza161
  *
@@ -18,18 +28,6 @@
  * @property timestamp Represents the initialization timestamp of the task.
  * @property priority Represents the priority of the task. It ranges between 0 and 10.
  */
-
-package aza161.test.todolist.models
-
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.Instant
-import kotlinx.datetime.Clock
-import kotlinx.datetime.serializers.InstantIso8601Serializer
-import kotlinx.serialization.Serializable
-import kotlin.uuid.Uuid
-import kotlin.uuid.ExperimentalUuidApi
-
-
 @Serializable
 data class Task(
     var name: String? = null,
@@ -50,15 +48,12 @@ data class Task(
     public val timestamp: Instant = Clock.System.now()
 
     /**
-     * @property priority Represents the priority of the task. It ranges between 0 and 10. Default value is 0.
+     * Sets the priority of the task.
+     * The priority must be within the range of 0 to 10.
+     * @param priority The priority to set, which should be between 0 (lowest) and 10 (highest).
+     * @throws IllegalArgumentException if the priority is not within the valid range.
      */
     public var priority: Int = 0
-        /**
-         * Sets the priority of the task.
-         * The priority must be within the range of 0 to 10.
-         * @param priority The priority to set, which should be between 0 (lowest) and 10 (highest).
-         * @throws IllegalArgumentException if the priority is not within the valid range.
-         */
         set(priority: Int) {
             require(priority in 0..10) { "Priority should be between 0 and 10, priority = $priority" }
             field = priority
