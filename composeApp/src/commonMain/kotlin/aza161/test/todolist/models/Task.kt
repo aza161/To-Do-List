@@ -4,10 +4,11 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.Instant
 import kotlinx.datetime.Clock
 import kotlinx.datetime.serializers.InstantIso8601Serializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+import kotlin.uuid.ExperimentalUuidApi
+
 
 @Serializable
 data class Task(
@@ -19,10 +20,11 @@ data class Task(
     public var complete: Boolean = false
     public var reminderDateTime: LocalDateTime? = null
 
+    @Contextual
+    @Serializable(with = UuidSerializer::class)
     @OptIn(ExperimentalUuidApi::class)
     public val id: Uuid = Uuid.random()
 
-    @Transient
     public val subTasks: MutableList<Task> = mutableListOf()
 
     @Serializable(with = InstantIso8601Serializer::class)
